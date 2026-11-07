@@ -1,7 +1,7 @@
 ---
 doc: BRIEF-001
 title: FitCadence – Project brief
-version: 0.7
+version: 0.8
 status: Draft
 updated: 2026-11-07
 owner: Teodora
@@ -44,6 +44,7 @@ Each one becomes a formal ADR in `docs/adr/` during P1.
 | D-12 | The product is a PWA (installable web app) with no native app. Stack still open (D-08) | Same features on mobile and web (vision C-1, NG-3) |
 | D-13 | When learning and delivery speed conflict, the slower, more instructive route wins | Learning goal (vision C-6, L-1 to L-6) |
 | D-14 | E2E testing is a merge gate. A PR merges into `main` only when CI is green, including the full Playwright suite, which runs on every PR and is never skipped (required status check). A PR that implements or changes a requirement includes its `@REQ-nnn` test, written by me in the same PR | Makes the E2E suite a real quality gate (vision L-5, D-07). Cost: every feature PR waits for my test, which touches R-1 (see delivery roadmap, merge gate) |
+| D-15 [proposed] | The demo instance ships with one prefilled demo program that differs from my real program | Keeps sample data fictional (checklist, vision C-7, C-15) |
  
 ## 5. ID conventions (traceability)
 | Prefix | Meaning | Lives in |
@@ -55,7 +56,7 @@ Each one becomes a formal ADR in `docs/adr/` during P1.
 | C-n / A-n / R-n | Constraint / Assumption / Risk | 00-vision.md |
 | Q-n | Open question | any doc |
 | REQ-nnn | Requirement (traces to CAP and G) | 01-requirements.md |
-| ADR-nnn | Architecture decision record | docs/adr/ |
+| ADR-nnn | Architecture decision record. Number matches the decision: ADR-001 is D-01 and so on. ADR-008 is reserved for D-08 (decided in P3). New ADRs after that take the next free number [ASSUMPTION] | docs/adr/ |
 | #n | GitHub Issue (title starts with REQ ID) | GitHub |
 | @REQ-nnn | Playwright tag on E2E tests | e2e/ |
  
@@ -71,6 +72,7 @@ Chat naming: `P0.1 · Vision interview`. One sub-phase per chat or session.
 | **P0 Discovery** | P0.1 Vision interview | Claude.ai (this Project) | `00-vision.md` v0.x |
 | | P0.2 Vision review & challenge | Claude.ai, new chat | `00-vision.md` v1.0 Approved |
 | **P1 Setup** | P1.1 Repo + tooling + `/init` + docs structure; D-01…D-07 → ADRs | Claude Code | Repo skeleton, ADRs |
+| | P1.2 Traceability approach [ASSUMPTION] | Claude.ai (this Project) | ADR, brief update |
 | **P2 Requirements** | P2.1 Requirements interview (`/spec`, AskUserQuestion) | Claude Code | `01-requirements.md` |
 | | P2.2 Requirements review | Claude.ai or Claude Code subagent | Approved REQs |
 | | P2.3 Backlog | Claude Code (`gh` CLI) | Issues, milestones, board |
@@ -124,6 +126,7 @@ fitcadence/                          # public repo (D-10)
 Outside the repo, never committed (checklist CHK-001, Q-27): `../fitcadence-private/` on the same level as `fitcadence/`, local-only. It holds the original training spec and the workout files.
  
 ## Change log
+- 0.8 (2026-11-07): Added D-15 (proposed): one prefilled demo program, different from the real one. Added P1.2 Traceability approach [ASSUMPTION] to the phase map. Added the ADR numbering rule to the ID conventions.
 - 0.7 (2026-11-07): Reworded one line in section 1 for the public repo.
 - 0.6 (2026-11-07): Added section 8, Target repository structure (tree adapted to FitCadence, with the phase in which each folder appears). `docs/specs/` and `docs/traceability.md` marked [ASSUMPTION].
 - 0.5 (2026-11-03): D-14 confirmed (no longer proposed).

@@ -1,7 +1,7 @@
 ---
 doc: ROAD-002
 title: FitCadence – Delivery roadmap
-version: 0.6
+version: 0.7
 status: Draft
 updated: 2026-11-07
 owner: Teodora
@@ -9,7 +9,7 @@ owner: Teodora
 
 # FitCadence – Delivery roadmap
 
-**Where I am now:** discovery (P0) is complete, vision v1.0 Approved · **Next:** `P1.1 · Setup` in Claude Code
+**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (repo, docs, history check done; ADRs next) · **Next:** finish P1.1 in Claude Code, then `P1.2 · Traceability approach`
 
 This file covers P1 to P8. Discovery (P0) is in `fitcadence-discovery-roadmap.md` (frozen). The phase map and IDs come from `fitcadence-project-brief.md` §6. Sub-phases and steps that the brief does not list are marked **[ASSUMPTION]** and are confirmed when the phase starts.
 
@@ -38,7 +38,7 @@ flowchart TB
 
     subgraph P1["P1 · Setup"]
         direction TB
-        p11["⌨️ P1.1 · Repo, tooling,<br/>docs structure, ADRs"]
+        p11["⌨️ P1.1 · Repo, tooling,<br/>docs structure, ADRs"] --> p12["💬 P1.2 · Traceability approach"]
     end
 
     subgraph P2["P2 · Requirements"]
@@ -90,7 +90,7 @@ flowchart TB
     class p11 active
     class P1 active
     class P2,P3,P4,P5,P6,P7,P8 todo
-    class p21,p22,p23,p31,p32,p41,p42,p51,p52,p53,p6a,p6b,p6c,p6d,p6e,p71,p72,p8 step
+    class p12,p21,p22,p23,p31,p32,p41,p42,p51,p52,p53,p6a,p6b,p6c,p6d,p6e,p71,p72,p8 step
 ```
 
 **Legend:** green = done · blue (thick border) = next/current · grey = upcoming · white box = stage
@@ -99,7 +99,8 @@ flowchart TB
 
 | Phase                       | Stage                                                        | Where              | Status   | Output                          | Version |
 | --------------------------- | ------------------------------------------------------------ | ------------------ | -------- | ------------------------------- | ------- |
-| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ Next  | Repo skeleton, ADRs             | –       |
+| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (repo, docs, history check done; ADRs next) | Repo skeleton, ADRs             | –       |
+|                             | P1.2 Traceability approach **[ASSUMPTION: new sub-phase]**   | 💬 Claude.ai       | ⏳ To do | ADR + brief update              | –       |
 | P2 Requirements             | P2.1 Requirements interview                                  | ⌨️                 | ⏳ To do | `01-requirements.md`            | –       |
 |                             | P2.2 Requirements review                                     | 💬 or ⌨️           | ⏳ To do | Approved REQs                   | –       |
 |                             | P2.3 Backlog                                                 | ⌨️                 | ⏳ To do | Issues, milestones, board       | –       |
@@ -131,12 +132,17 @@ Each step cites its source (D = decision, C = constraint, L = learning objective
 | Docs structure under `/docs` (`adr/`, vision, brief, both roadmaps)                                                                                                                                                                                                                              | D-01                              |
 | Commit approved docs that pass the Q-18 checklist                                                                                                                                                                                                                                                | D-10, C-13                        |
 | ADRs for D-01 to D-07. D-08 stays open until P3                                                                                                                                                                                                                                                  | Brief §4                          |
-| ADRs for D-09 to D-13, or keep them as brief and vision decisions                                                                                                                                                                                                                                | **[ASSUMPTION]**, confirm in P1.1 |
+| ADRs for D-09 to D-14                                                                                                                                                                                                                                                                            | Confirmed by Teodora 2026-11-07   |
 | `/init` for a first `CLAUDE.md` (extended in P4)                                                                                                                                                                                                                                                 | Brief §6                          |
 | Minimal permission rule denying writes to `e2e/` from the first session, so D-07 is enforced before P4                                                                                                                                                                                           | **[ASSUMPTION]**, D-07            |
 
 **Exit criterion:** repo is public; the private-data checklist exists and was applied; approved docs and ADRs are committed; a manual check of the git history shows no private data; trackers updated.
 **Resolves:** Q-18.
+
+**P1.2 · Traceability approach** · 💬 Claude.ai · Output: ADR + brief update **[ASSUMPTION: new sub-phase]**
+Agree how the chain G → CAP → REQ → Issue → PR → unit tests → @REQ test → CI report is recorded and verified, before the requirements interview (P2.1): a generated matrix or a hand-kept one, where it lives, and what fails CI. Implementation (generator script, CI check) stays in P5.2 and P6.
+**Exit criterion:** the approach is recorded as an ADR and in the brief **[ASSUMPTION]**.
+**Resolves:** Q-29.
 
 ### P2 · Requirements
 
@@ -267,9 +273,16 @@ Where: both · Output: healthy repo, written retrospective.
 | Phase                | Questions                                                        |
 | -------------------- | ---------------------------------------------------------------- |
 | P1.1                 | Q-18                                                             |
+| P1.2                 | Q-29                                                             |
 | P2.1                 | Q-1, Q-11, Q-14, Q-19, Q-21, Q-22, Q-23; backup mechanism (C-14) |
 | P3.1                 | Q-9, Q-16, Q-17, Q-20                                            |
+| P4 (before P4.1)     | Q-28                                                             |
 | Before post-MVP work | Q-12, Q-13, Q-24, Q-25                                           |
+
+## Open questions added after vision v1.0
+
+- **Q-28** · What is worth adding to this project beyond what we have planned? Scope: (1) community skills, plugins, subagents and MCP servers, including but not limited to find-skills, superpowers, claude-mem, impeccable and task-observer; (2) deterministic controls, meaning settings, permissions, hooks, linters, scanners and CI checks, which enforce rules instead of relying on prompts (for example a rule like KISS or the private-data checklist); (3) anything about Claude Code I don't know yet. Judge each against: it earns its complexity (KISS), it is safe for a public repo (D-10), it is free (D-06), it is something I can read and understand (L-2), and it is verified from official docs or the source repo, not from blog posts. Owner: Teodora, Claude researches. Phase: P4, before P4.1 **[ASSUMPTION]**.
+- **Q-29** · How is traceability recorded and verified? Compare: generated `docs/traceability.md` vs hand-kept; ID format and tag conventions; what fails CI (for example a REQ with no Issue or no @REQ test). Owner: Teodora, Claude researches. Phase: P1.2 **[ASSUMPTION]**.
 
 ## Conventions
 
@@ -297,6 +310,7 @@ Where the suite runs (Vercel preview URL or a local build in Actions) depends on
 
 ## Change log
 
+- 0.7 (2026-11-07): P1.1 marked in progress; ADRs now cover D-09 to D-14 (confirmed by Teodora). Added P1.2 Traceability approach as a new sub-phase [ASSUMPTION] (tracker, diagram, phase details). Added Q-28 (P4, before P4.1) and Q-29 (P1.2) with routing.
 - 0.6 (2026-11-07): Reworded private-data wording for the public repo.
 - 0.5 (2026-11-03): Unit-tests-first and locator-convention rules confirmed by Teodora (no longer [ASSUMPTION]); both go into `CLAUDE.md` in P4.1.
 - 0.4 (2026-11-03): D-14 confirmed by Teodora (no longer proposed).
