@@ -1,0 +1,19 @@
+# Secrets
+.env*
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor junk
+.vscode/
+.idea/
+*.swp
+*~
+
+# Dependencies
+node_modules/
