@@ -1,7 +1,7 @@
 ---
 doc: ROAD-002
 title: FitCadence – Delivery roadmap
-version: 0.7
+version: 0.8
 status: Draft
 updated: 2026-11-07
 owner: Teodora
@@ -9,7 +9,7 @@ owner: Teodora
 
 # FitCadence – Delivery roadmap
 
-**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (repo, docs, history check done; ADRs next) · **Next:** finish P1.1 in Claude Code, then `P1.2 · Traceability approach`
+**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (repo, docs, history check and ADRs done; `/init`, the `e2e/` deny rule and Q-26 still open) · **Next:** finish P1.1 in Claude Code, then `P1.2 · Traceability approach`
 
 This file covers P1 to P8. Discovery (P0) is in `fitcadence-discovery-roadmap.md` (frozen). The phase map and IDs come from `fitcadence-project-brief.md` §6. Sub-phases and steps that the brief does not list are marked **[ASSUMPTION]** and are confirmed when the phase starts.
 
@@ -43,7 +43,7 @@ flowchart TB
 
     subgraph P2["P2 · Requirements"]
         direction TB
-        p21["⌨️ P2.1 · Requirements interview"] --> p22["💬 or ⌨️ P2.2 · Requirements review"] --> p23["⌨️ P2.3 · Backlog"]
+        p21["⌨️ P2.1 · Create skill, then requirements interview"] --> p22["💬 or ⌨️ P2.2 · Requirements review"] --> p23["⌨️ P2.3 · Backlog"]
     end
 
     subgraph P3["P3 · Architecture"]
@@ -99,7 +99,7 @@ flowchart TB
 
 | Phase                       | Stage                                                        | Where              | Status   | Output                          | Version |
 | --------------------------- | ------------------------------------------------------------ | ------------------ | -------- | ------------------------------- | ------- |
-| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (repo, docs, history check done; ADRs next) | Repo skeleton, ADRs             | –       |
+| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (repo, docs, history check, ADRs done; /init, e2e/ deny rule, Q-26 open) | Repo skeleton, ADRs             | –       |
 |                             | P1.2 Traceability approach **[ASSUMPTION: new sub-phase]**   | 💬 Claude.ai       | ⏳ To do | ADR + brief update              | –       |
 | P2 Requirements             | P2.1 Requirements interview                                  | ⌨️                 | ⏳ To do | `01-requirements.md`            | –       |
 |                             | P2.2 Requirements review                                     | 💬 or ⌨️           | ⏳ To do | Approved REQs                   | –       |
@@ -146,10 +146,11 @@ Agree how the chain G → CAP → REQ → Issue → PR → unit tests → @REQ t
 
 ### P2 · Requirements
 
-**P2.1 · Requirements interview** · ⌨️ `/spec`, AskUserQuestion · Output: `01-requirements.md`
+**P2.1 · Requirements interview** · ⌨️ requirements-interview skill, AskUserQuestion · Output: `01-requirements.md`
 
 | Step                                                                                                                                                                                               | Source                |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| Create a minimal requirements-interview skill (name **[ASSUMPTION]**), modelled on the vision-interview skill (synced from claude.ai into `~/.claude/skills/synced/`), committed as `.claude/skills/requirements-interview/SKILL.md` after the private-data checklist. Refined later in P4.2 | Teodora, 2026-11-07; L-2 |
 | Interview for MVP requirements (CAP-1, CAP-4 minimal) and the constraints that need REQs (videos failing gracefully C-2, dark mode and large taps C-5, login C-16, backup C-14, two instances C-7) | L-1, vision §6 and §7 |
 | Every REQ-nnn references at least one CAP and one G                                                                                                                                                | Vision §10            |
 | Decide the backup or export mechanism                                                                                                                                                              | C-14                  |
@@ -310,6 +311,7 @@ Where the suite runs (Vercel preview URL or a local build in Actions) depends on
 
 ## Change log
 
+- 0.8 (2026-11-07): P1.1 status: ADRs done; `/init`, the `e2e/` deny rule and Q-26 still open. P2.1: Teodora decided to create a minimal requirements-interview skill first (skill name [ASSUMPTION]); replaced the incorrect `/spec` wording (not a built-in Claude Code command); P2.1 diagram box renamed.
 - 0.7 (2026-11-07): P1.1 marked in progress; ADRs now cover D-09 to D-14 (confirmed by Teodora). Added P1.2 Traceability approach as a new sub-phase [ASSUMPTION] (tracker, diagram, phase details). Added Q-28 (P4, before P4.1) and Q-29 (P1.2) with routing.
 - 0.6 (2026-11-07): Reworded private-data wording for the public repo.
 - 0.5 (2026-11-03): Unit-tests-first and locator-convention rules confirmed by Teodora (no longer [ASSUMPTION]); both go into `CLAUDE.md` in P4.1.

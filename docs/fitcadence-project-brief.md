@@ -1,7 +1,7 @@
 ---
 doc: BRIEF-001
 title: FitCadence – Project brief
-version: 0.8
+version: 0.9
 status: Draft
 updated: 2026-11-07
 owner: Teodora
@@ -73,7 +73,7 @@ Chat naming: `P0.1 · Vision interview`. One sub-phase per chat or session.
 | | P0.2 Vision review & challenge | Claude.ai, new chat | `00-vision.md` v1.0 Approved |
 | **P1 Setup** | P1.1 Repo + tooling + `/init` + docs structure; D-01…D-07 → ADRs | Claude Code | Repo skeleton, ADRs |
 | | P1.2 Traceability approach [ASSUMPTION] | Claude.ai (this Project) | ADR, brief update |
-| **P2 Requirements** | P2.1 Requirements interview (`/spec`, AskUserQuestion) | Claude Code | `01-requirements.md` |
+| **P2 Requirements** | P2.1 Requirements interview (requirements-interview skill, AskUserQuestion) | Claude Code | `01-requirements.md` |
 | | P2.2 Requirements review | Claude.ai or Claude Code subagent | Approved REQs |
 | | P2.3 Backlog | Claude Code (`gh` CLI) | Issues, milestones, board |
 | **P3 Architecture** | P3.1 Stack & options exploration | Claude.ai | Option comparison |
@@ -126,6 +126,7 @@ fitcadence/                          # public repo (D-10)
 Outside the repo, never committed (checklist CHK-001, Q-27): `../fitcadence-private/` on the same level as `fitcadence/`, local-only. It holds the original training spec and the workout files.
  
 ## Change log
+- 0.9 (2026-11-07): Phase map, P2.1 row: replaced `/spec` (not a built-in Claude Code command) with a requirements-interview skill, per Teodora's decision.
 - 0.8 (2026-11-07): Added D-15 (proposed): one prefilled demo program, different from the real one. Added P1.2 Traceability approach [ASSUMPTION] to the phase map. Added the ADR numbering rule to the ID conventions.
 - 0.7 (2026-11-07): Reworded one line in section 1 for the public repo.
 - 0.6 (2026-11-07): Added section 8, Target repository structure (tree adapted to FitCadence, with the phase in which each folder appears). `docs/specs/` and `docs/traceability.md` marked [ASSUMPTION].
