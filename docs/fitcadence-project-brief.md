@@ -1,7 +1,7 @@
 ---
 doc: BRIEF-001
 title: FitCadence – Project brief
-version: 0.10
+version: 0.11
 status: Draft
 updated: 2026-11-08
 owner: Teodora
@@ -103,6 +103,7 @@ The shape the repo grows into. Folders appear in the phase noted in the comment;
 fitcadence/                          # public repo (D-10)
 ├── CLAUDE.md                        # short, always-loaded project rules (first draft from /init in P1.1, pruned in P4.1)
 ├── .gitignore                       # from the first commit (D-10)
+├── .pre-commit-config.yaml          # gitleaks hook (P1.1, Q-26)
 ├── docs/
 │   ├── 00-vision.md                 # problem, goals (G-n), non-goals (NG-n)
 │   ├── fitcadence-project-brief.md  # decisions D-nn, ID conventions, phase map
@@ -127,6 +128,7 @@ fitcadence/                          # public repo (D-10)
 Outside the repo, never committed (checklist CHK-001, Q-27): `../fitcadence-private/` on the same level as `fitcadence/`, local-only. It holds the original training spec and the workout files.
  
 ## Change log
+- 0.11 (2026-11-08): Section 8: added `.pre-commit-config.yaml` (gitleaks hook, P1.1, Q-26) to the target repo tree.
 - 0.10 (2026-11-08): "Private" narrowed to real training logs, health notes and secrets (checklist v0.4). D-10 and D-11 reworded. D-15 now points to Q-30 (open: does the demo program still need to differ from the real one?). Added D-16 (proposed): gitleaks pre-commit and CI, push protection, manual checklist; no custom word list.
 - 0.9 (2026-11-07): Phase map, P2.1 row: replaced `/spec` (not a built-in Claude Code command) with a requirements-interview skill, per Teodora's decision.
 - 0.8 (2026-11-07): Added D-15 (proposed): one prefilled demo program, different from the real one. Added P1.2 Traceability approach [ASSUMPTION] to the phase map. Added the ADR numbering rule to the ID conventions.

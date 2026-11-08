@@ -1,7 +1,7 @@
 ---
 doc: ROAD-002
 title: FitCadence – Delivery roadmap
-version: 0.11
+version: 0.12
 status: Draft
 updated: 2026-11-08
 owner: Teodora
@@ -9,7 +9,7 @@ owner: Teodora
 
 # FitCadence – Delivery roadmap
 
-**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (all steps done: repo, docs, history check, ADRs, `CLAUDE.md`, `e2e/` deny rule, gitleaks pre-commit hook installed and tested, Q-26 done; the latest local commits are not pushed yet and the exit check awaits my OK) · **Next:** push, then `P1.2 · Traceability approach`
+**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is complete (repo, docs, history check, ADRs, `CLAUDE.md`, `e2e/` deny rule, gitleaks pre-commit hook, Q-26 done; pushed 2026-11-08) · **Next:** `P1.2 · Traceability approach` in Claude.ai (Q-29)
 
 This file covers P1 to P8. Discovery (P0) is in `fitcadence-discovery-roadmap.md` (frozen). The phase map and IDs come from `fitcadence-project-brief.md` §6. Sub-phases and steps that the brief does not list are marked **[ASSUMPTION]** and are confirmed when the phase starts.
 
@@ -87,10 +87,11 @@ flowchart TB
     classDef todo fill:#f3f4f6,stroke:#9ca3af,color:#374151
 
     class D0 done
-    class p11 active
+    class p11 done
+    class p12 active
     class P1 active
     class P2,P3,P4,P5,P6,P7,P8 todo
-    class p12,p21,p22,p23,p31,p32,p41,p42,p51,p52,p53,p6a,p6b,p6c,p6d,p6e,p71,p72,p8 step
+    class p21,p22,p23,p31,p32,p41,p42,p51,p52,p53,p6a,p6b,p6c,p6d,p6e,p71,p72,p8 step
 ```
 
 **Legend:** green = done · blue (thick border) = next/current · grey = upcoming · white box = stage
@@ -99,7 +100,7 @@ flowchart TB
 
 | Phase                       | Stage                                                        | Where              | Status   | Output                          | Version |
 | --------------------------- | ------------------------------------------------------------ | ------------------ | -------- | ------------------------------- | ------- |
-| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (all steps done incl. gitleaks hook, Q-26 done; push and exit check await my OK) | Repo skeleton, ADRs             | –       |
+| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ✅ Done 2026-11-08 (Q-18, Q-26 resolved) | Repo skeleton, ADRs             | –       |
 |                             | P1.2 Traceability approach **[ASSUMPTION: new sub-phase]**   | 💬 Claude.ai       | ⏳ To do | ADR + brief update              | –       |
 | P2 Requirements             | P2.1 Requirements interview                                  | ⌨️                 | ⏳ To do | `01-requirements.md`            | –       |
 |                             | P2.2 Requirements review                                     | 💬 or ⌨️           | ⏳ To do | Approved REQs                   | –       |
@@ -315,6 +316,7 @@ Where the suite runs (Vercel preview URL or a local build in Actions) depends on
 
 ## Change log
 
+- 0.12 (2026-11-08): P1.1 marked complete (tracker row, "Where I am now", diagram: P1.1 done, P1.2 active). Next: P1.2 Traceability approach in Claude.ai (Q-29).
 - 0.11 (2026-11-08): P1.1: gitleaks pre-commit hook installed and tested (Q-26 done); tracker row and "Where I am now" updated. P1.1 is not marked complete until the local commits are pushed and I approve the exit check.
 - 0.10 (2026-11-08): Added Q-31 (plan editor scope, open) and routed it to P2.1.
 - 0.9 (2026-11-08): "Private" narrowed (checklist v0.4). P1.1: reworded the Q-18 step, added the gitleaks pre-commit step, Resolves now Q-18 and Q-26; `/init` and the `e2e/` deny rule marked done. P5.2: gitleaks CI scan and push protection replace the generic private-data scan. Added Q-30 (open) and its routing.
