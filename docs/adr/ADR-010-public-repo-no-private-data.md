@@ -26,3 +26,7 @@ The GitHub repo is public. No personal or private data is ever committed. This i
 - The checklist is applied at every PR.
 - Her program, equipment and logs are entered only through the UI, never hardcoded (C-15).
 - R-2 is a top risk (Teodora); its mitigations include the three checks above and C-15.
+
+## Amended 2026-11-08
+
+The scope of "private" was narrowed to real training logs, health notes and secrets (`docs/private-data-checklist.md` v0.4; brief D-10 reworded). The safety nets are now gitleaks as a pre-commit hook and in CI, GitHub push protection and the manual checklist (D-16 [proposed]), replacing "an automated scan in CI". The original text above is kept as written. Where it says her program is entered only through the UI (C-15), read C-15 as reworded in vision v1.5: it now concerns real logs, health notes and secrets.

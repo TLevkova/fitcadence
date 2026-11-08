@@ -1,7 +1,7 @@
 ---
 doc: VIS-001
 title: FitCadence – Vision
-version: 1.5
+version: 1.6
 status: Approved
 updated: 2026-11-08
 owner: Teodora
@@ -137,6 +137,7 @@ Top risks (Teodora): R-2 and R-6.
 | Q-22 | Rotation edge cases: the very first workout, overriding which workout is next, and what counts as "logged" (e.g. all sets skipped)                                                                                                  | Teodora                     | P2.1 (with Q-14)                                   |
 | Q-23 | Rest timer: fixed duration or set per block, and does it alert?                                                                                                                                                                     | Teodora                     | P2.1                                               |
 | Q-24 | Return-after-break protocol and exercise gating: supported by the app or kept outside it?                                                                                                                              | Teodora                     | Later (with the return-after-break protocol)       |
+| Q-31 | Is the plan editor still required in the first release? CAP-1 and R-1 justify it with C-15 (nothing personal is hardcoded, so her program is entered through the UI). Since the program is no longer private (docs/private-data-checklist.md v0.4), the program could be seeded instead. Open, not decided | Teodora | P2.1 |
 | Q-25 | CAP-2, CAP-3 and CAP-5 support no goal: add Later goal(s) or exempt them from the G → CAP check?                                                                                                                                    | Teodora                     | Before the first Later capability is scheduled     |
 
 Q-3 to Q-8 were resolved during the interview (reconciliation of the training spec with the workout files). See `Training_System_Spec.md` v0.4. Q-2 (body weight: Later) and Q-10 (editor: first release) were resolved in stage 5. Q-15 (the repo is public) was resolved in stage 6.
@@ -149,6 +150,7 @@ Every requirement (REQ-nnn) in `01-requirements.md` must reference at least one 
 
 | Version | Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.6     | 2026-11-08 | Change after approval, requested by Teodora: added Q-31 (is the plan editor still required in the first release?), routed to P2.1. No scope change; CAP-1 and R-1 text untouched. |
 | 1.5     | 2026-11-08 | Change after approval, requested by Teodora: "private" narrowed to real training logs, health notes and secrets (docs/private-data-checklist.md v0.4); C-13, C-15 and the R-2 mitigation reworded to match. No scope change; CAP-1 and R-1 text untouched. |
 | 1.4     | 2026-11-07 | Change after approval, requested by Teodora: Q-18 marked resolved in P1.1 (see docs/private-data-checklist.md). No scope change. |
 | 1.3     | 2026-11-07 | Change after approval, requested by Teodora: wording changes for the public repo (Q-24, two change-log entries, one spec pointer). No scope change. |

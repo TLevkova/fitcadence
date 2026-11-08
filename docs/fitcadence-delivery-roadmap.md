@@ -1,7 +1,7 @@
 ---
 doc: ROAD-002
 title: FitCadence – Delivery roadmap
-version: 0.9
+version: 0.10
 status: Draft
 updated: 2026-11-08
 owner: Teodora
@@ -276,7 +276,7 @@ Where: both · Output: healthy repo, written retrospective.
 | -------------------- | ---------------------------------------------------------------- |
 | P1.1                 | Q-18, Q-26                                                       |
 | P1.2                 | Q-29                                                             |
-| P2.1                 | Q-1, Q-11, Q-14, Q-19, Q-21, Q-22, Q-23; backup mechanism (C-14) |
+| P2.1                 | Q-1, Q-11, Q-14, Q-19, Q-21, Q-22, Q-23, Q-31; backup mechanism (C-14) |
 | P3.1                 | Q-9, Q-16, Q-17, Q-20                                            |
 | P4 (before P4.1)     | Q-28                                                             |
 | Before P5.1 [ASSUMPTION] | Q-30                                                         |
@@ -287,6 +287,7 @@ Where: both · Output: healthy repo, written retrospective.
 - **Q-28** · What is worth adding to this project beyond what we have planned? Scope: (1) community skills, plugins, subagents and MCP servers, including but not limited to find-skills, superpowers, claude-mem, impeccable and task-observer; (2) deterministic controls, meaning settings, permissions, hooks, linters, scanners and CI checks, which enforce rules instead of relying on prompts (for example a rule like KISS or the private-data checklist); (3) anything about Claude Code I don't know yet. Judge each against: it earns its complexity (KISS), it is safe for a public repo (D-10), it is free (D-06), it is something I can read and understand (L-2), and it is verified from official docs or the source repo, not from blog posts. Owner: Teodora, Claude researches. Phase: P4, before P4.1 **[ASSUMPTION]**.
 - **Q-29** · How is traceability recorded and verified? Compare: generated `docs/traceability.md` vs hand-kept; ID format and tag conventions; what fails CI (for example a REQ with no Issue or no @REQ test). Owner: Teodora, Claude researches. Phase: P1.2 **[ASSUMPTION]**.
 - **Q-30** · Does the demo program still need to differ from the real one? D-15 (proposed) says yes; the private-data checklist v0.4 says the demo program may be based on the real structure, as long as it has no logs and no health notes. Owner: Teodora. Phase: before P5.1 **[ASSUMPTION]**. Status: open.
+- **Q-31** · Is the plan editor still required in the first release? CAP-1 and R-1 justify it with C-15 (nothing personal is hardcoded, so her program is entered through the UI). Since the program is no longer private (docs/private-data-checklist.md v0.4), the program could be seeded instead. Open, not decided. Owner: Teodora. Phase: P2.1. Status: open. Also recorded in `00-vision.md` v1.6.
 
 ## Conventions
 
@@ -314,6 +315,7 @@ Where the suite runs (Vercel preview URL or a local build in Actions) depends on
 
 ## Change log
 
+- 0.10 (2026-11-08): Added Q-31 (plan editor scope, open) and routed it to P2.1.
 - 0.9 (2026-11-08): "Private" narrowed (checklist v0.4). P1.1: reworded the Q-18 step, added the gitleaks pre-commit step, Resolves now Q-18 and Q-26; `/init` and the `e2e/` deny rule marked done. P5.2: gitleaks CI scan and push protection replace the generic private-data scan. Added Q-30 (open) and its routing.
 - 0.8 (2026-11-07): P1.1 status: ADRs done; `/init`, the `e2e/` deny rule and Q-26 still open. P2.1: Teodora decided to create a minimal requirements-interview skill first (skill name [ASSUMPTION]); replaced the incorrect `/spec` wording (not a built-in Claude Code command); P2.1 diagram box renamed.
 - 0.7 (2026-11-07): P1.1 marked in progress; ADRs now cover D-09 to D-14 (confirmed by Teodora). Added P1.2 Traceability approach as a new sub-phase [ASSUMPTION] (tracker, diagram, phase details). Added Q-28 (P4, before P4.1) and Q-29 (P1.2) with routing.
