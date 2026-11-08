@@ -1,7 +1,7 @@
 ---
 doc: ROAD-002
 title: FitCadence – Delivery roadmap
-version: 0.10
+version: 0.11
 status: Draft
 updated: 2026-11-08
 owner: Teodora
@@ -9,7 +9,7 @@ owner: Teodora
 
 # FitCadence – Delivery roadmap
 
-**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (repo, docs, history check, ADRs, `CLAUDE.md` and the `e2e/` deny rule done; Q-26 decided: the gitleaks pre-commit hook is configured, install and test await my OK) · **Next:** finish P1.1 in Claude Code, then `P1.2 · Traceability approach`
+**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (all steps done: repo, docs, history check, ADRs, `CLAUDE.md`, `e2e/` deny rule, gitleaks pre-commit hook installed and tested, Q-26 done; the latest local commits are not pushed yet and the exit check awaits my OK) · **Next:** push, then `P1.2 · Traceability approach`
 
 This file covers P1 to P8. Discovery (P0) is in `fitcadence-discovery-roadmap.md` (frozen). The phase map and IDs come from `fitcadence-project-brief.md` §6. Sub-phases and steps that the brief does not list are marked **[ASSUMPTION]** and are confirmed when the phase starts.
 
@@ -99,7 +99,7 @@ flowchart TB
 
 | Phase                       | Stage                                                        | Where              | Status   | Output                          | Version |
 | --------------------------- | ------------------------------------------------------------ | ------------------ | -------- | ------------------------------- | ------- |
-| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (repo, docs, history check, ADRs, CLAUDE.md, e2e/ deny rule done; Q-26 decided, gitleaks hook install open) | Repo skeleton, ADRs             | –       |
+| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (all steps done incl. gitleaks hook, Q-26 done; push and exit check await my OK) | Repo skeleton, ADRs             | –       |
 |                             | P1.2 Traceability approach **[ASSUMPTION: new sub-phase]**   | 💬 Claude.ai       | ⏳ To do | ADR + brief update              | –       |
 | P2 Requirements             | P2.1 Requirements interview                                  | ⌨️                 | ⏳ To do | `01-requirements.md`            | –       |
 |                             | P2.2 Requirements review                                     | 💬 or ⌨️           | ⏳ To do | Approved REQs                   | –       |
@@ -134,7 +134,7 @@ Each step cites its source (D = decision, C = constraint, L = learning objective
 | ADRs for D-01 to D-07. D-08 stays open until P3                                                                                                                                                                                                                                                  | Brief §4                          |
 | ADRs for D-09 to D-14                                                                                                                                                                                                                                                                            | Confirmed by Teodora 2026-11-07   |
 | `/init` for a first `CLAUDE.md` (extended in P4)                                                                                                                                                                                                                                                 | Brief §6                          |
-| gitleaks as a local pre-commit hook via the `pre-commit` framework (`.pre-commit-config.yaml`); installing it and testing it needs my OK | Q-26, D-16 [proposed], D-10 |
+| gitleaks as a local pre-commit hook via the `pre-commit` framework (`.pre-commit-config.yaml`); installed and tested 2026-11-08 (a fake AWS key was blocked) | Q-26, D-16 [proposed], D-10 |
 | Minimal permission rule denying writes to `e2e/` from the first session, so D-07 is enforced before P4                                                                                                                                                                                           | **[ASSUMPTION]**, D-07            |
 
 **Exit criterion:** repo is public; the private-data checklist exists and was applied; approved docs and ADRs are committed; a manual check of the git history shows no private data; trackers updated.
@@ -315,6 +315,7 @@ Where the suite runs (Vercel preview URL or a local build in Actions) depends on
 
 ## Change log
 
+- 0.11 (2026-11-08): P1.1: gitleaks pre-commit hook installed and tested (Q-26 done); tracker row and "Where I am now" updated. P1.1 is not marked complete until the local commits are pushed and I approve the exit check.
 - 0.10 (2026-11-08): Added Q-31 (plan editor scope, open) and routed it to P2.1.
 - 0.9 (2026-11-08): "Private" narrowed (checklist v0.4). P1.1: reworded the Q-18 step, added the gitleaks pre-commit step, Resolves now Q-18 and Q-26; `/init` and the `e2e/` deny rule marked done. P5.2: gitleaks CI scan and push protection replace the generic private-data scan. Added Q-30 (open) and its routing.
 - 0.8 (2026-11-07): P1.1 status: ADRs done; `/init`, the `e2e/` deny rule and Q-26 still open. P2.1: Teodora decided to create a minimal requirements-interview skill first (skill name [ASSUMPTION]); replaced the incorrect `/spec` wording (not a built-in Claude Code command); P2.1 diagram box renamed.
