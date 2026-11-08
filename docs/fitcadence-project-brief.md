@@ -1,9 +1,9 @@
 ---
 doc: BRIEF-001
 title: FitCadence – Project brief
-version: 0.9
+version: 0.10
 status: Draft
-updated: 2026-11-07
+updated: 2026-11-08
 owner: Teodora
 ---
  
@@ -39,12 +39,13 @@ Each one becomes a formal ADR in `docs/adr/` during P1.
 | D-07 | Playwright E2E suite written by me; Claude Code is denied write access to `e2e/` via permissions | Learning goal; deterministic enforcement |
 | D-08 | Tech stack: **not decided**; decided in P3 | Requirements first |
 | D-09 | Vocabulary, used in every doc, the UI and the tests: **Workout** (1, 2, 3) → **Block** (A, B, C) → **Round** (one pass through a block) → **Set** (one exercise performed once, in one round). Done or skipped is marked explicitly at set, round and block level; nothing is pre-selected | One consistent language across vision, requirements, UI and tests (P0.1 stage 3) |
-| D-10 | The GitHub repo is public. No personal or private data is ever committed; checked in every iteration (`.gitignore` for private paths from the first commit, automated scan in CI, manual checklist at every PR) | Showcase for interviews while handling private information iteratively; a public push cannot be taken back (vision R-2, C-13) |
-| D-11 | Two deployments: a private instance with her real data, and a demo instance with sample data only. No personal data is hardcoded; she enters her program, equipment and logs through the UI | Keeps the repo and the demo free of personal data while the app stays useful to her (vision C-7, C-15) |
+| D-10 | The GitHub repo is public. No private data is ever committed. Private means real training logs, health notes and secrets (checklist CHK-001 v0.4); the program and exercises are not private. Checked in every iteration (`.gitignore` for private paths from the first commit, gitleaks pre-commit and CI, GitHub push protection, manual checklist at every PR) | Showcase for interviews while handling private information iteratively; a public push cannot be taken back (vision R-2, C-13) |
+| D-11 | Two deployments: a private instance with her real data, and a demo instance with sample data only. No real training logs, health notes or secrets are hardcoded; she enters her logs through the UI | Keeps the repo and the demo free of private data while the app stays useful to her (vision C-7, C-15) |
 | D-12 | The product is a PWA (installable web app) with no native app. Stack still open (D-08) | Same features on mobile and web (vision C-1, NG-3) |
 | D-13 | When learning and delivery speed conflict, the slower, more instructive route wins | Learning goal (vision C-6, L-1 to L-6) |
 | D-14 | E2E testing is a merge gate. A PR merges into `main` only when CI is green, including the full Playwright suite, which runs on every PR and is never skipped (required status check). A PR that implements or changes a requirement includes its `@REQ-nnn` test, written by me in the same PR | Makes the E2E suite a real quality gate (vision L-5, D-07). Cost: every feature PR waits for my test, which touches R-1 (see delivery roadmap, merge gate) |
-| D-15 [proposed] | The demo instance ships with one prefilled demo program that differs from my real program | Keeps sample data fictional (checklist, vision C-7, C-15) |
+| D-15 [proposed] | The demo instance ships with one prefilled demo program that differs from my real program (see Q-30, open) | Keeps sample data fictional (checklist, vision C-7, C-15) |
+| D-16 [proposed] | Safety nets for private data (Q-26): gitleaks as a local pre-commit hook (via the `pre-commit` framework) and as a required CI check, GitHub push protection, and the manual checklist. No custom word list | Scanners catch secrets, not health notes, so the manual checklist stays; proportionate to the risk (checklist CHK-001 v0.4, vision R-2) |
  
 ## 5. ID conventions (traceability)
 | Prefix | Meaning | Lives in |
@@ -126,6 +127,7 @@ fitcadence/                          # public repo (D-10)
 Outside the repo, never committed (checklist CHK-001, Q-27): `../fitcadence-private/` on the same level as `fitcadence/`, local-only. It holds the original training spec and the workout files.
  
 ## Change log
+- 0.10 (2026-11-08): "Private" narrowed to real training logs, health notes and secrets (checklist v0.4). D-10 and D-11 reworded. D-15 now points to Q-30 (open: does the demo program still need to differ from the real one?). Added D-16 (proposed): gitleaks pre-commit and CI, push protection, manual checklist; no custom word list.
 - 0.9 (2026-11-07): Phase map, P2.1 row: replaced `/spec` (not a built-in Claude Code command) with a requirements-interview skill, per Teodora's decision.
 - 0.8 (2026-11-07): Added D-15 (proposed): one prefilled demo program, different from the real one. Added P1.2 Traceability approach [ASSUMPTION] to the phase map. Added the ADR numbering rule to the ID conventions.
 - 0.7 (2026-11-07): Reworded one line in section 1 for the public repo.

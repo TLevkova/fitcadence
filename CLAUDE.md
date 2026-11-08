@@ -7,7 +7,7 @@ FitCadence is a personal fitness and nutrition app. The repo holds docs only. Th
 ## Privacy (this repo is public)
 
 - Follow `docs/private-data-checklist.md` as a hard rule.
-- Never put my real program, health notes, real logs or secrets into any file or commit message.
+- Never put my real training logs, health notes or secrets into any file or commit message.
 - Never read, list or reference `../fitcadence-private`.
 - Do not push.
 

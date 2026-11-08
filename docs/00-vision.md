@@ -1,9 +1,9 @@
 ---
 doc: VIS-001
 title: FitCadence – Vision
-version: 1.4
+version: 1.5
 status: Approved
-updated: 2026-11-07
+updated: 2026-11-08
 owner: Teodora
 ---
 
@@ -91,9 +91,9 @@ The MVP is done when one real workout has been logged end to end in the private 
 | C-10 | Zero cost beyond the Claude Pro subscription                                                                                                                                                                                 | D-06                 |
 | C-11 | Claude Code usage is bounded by the Claude Pro usage limits (no API budget)                                                                                                                                                  | D-05, D-06 (derived) |
 | C-12 | About 8 hours per week, rarely more. No fixed date for the first release                                                                                                                                                     | Teodora              |
-| C-13 | The repo is public. Private information (for example health-related notes, her real training data, secrets) never enters it: checked in every iteration so nothing reaches the git history                                   | Teodora              |
+| C-13 | The repo is public. Private information (real dated training logs, health, pain or symptom notes, secrets; defined in docs/private-data-checklist.md) never enters it: checked in every iteration so nothing reaches the git history                                   | Teodora              |
 | C-14 | Her own data can be backed up or exported. A backup or export must exist before real data is logged in the private instance; mechanism decided in P2.1. (Was "preferred"; made firm in P0.2.)                                | Teodora              |
-| C-15 | No personal data is hardcoded in the app or the repo. Her program, equipment and logs are only entered through the UI. The demo instance uses sample data                                                                    | Teodora              |
+| C-15 | No real training logs, health notes or secrets are hardcoded in the app or the repo. Her logs are only entered through the UI. The demo instance uses sample data                                                                    | Teodora              |
 | C-16 | The private instance requires login: only she can open it. Mechanism decided in P3 (Q-20). Added in P0.2                                                                                                                     | Teodora              |
 
 ## 8. Assumptions and risks
@@ -108,7 +108,7 @@ The MVP is done when one real workout has been logged end to end in the private 
 
 | ID  | Risk                                                                                  | Impact (H/M/L) | Mitigation                                                                                                                                                                                                                                                        |
 | --- | ------------------------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| R-2 | Private information reaches the public git history, and a push cannot be taken back   | H              | No personal data hardcoded (C-15); `.gitignore` for private paths from the first commit; automated scan in CI plus a manual checklist at every PR; what counts as private is defined in Q-18                                                                      |
+| R-2 | Private information reaches the public git history, and a push cannot be taken back   | H              | No real logs, health notes or secrets hardcoded (C-15); `.gitignore` for private paths from the first commit; gitleaks as a pre-commit hook and in CI, GitHub push protection, and a manual checklist at every PR; what counts as private is defined in docs/private-data-checklist.md (Q-18)                                                                      |
 | R-6 | Her training history is lost (storage or device failure, no backup)                   | H              | Backup or export is a firm constraint before real data is logged (C-14); storage decision in P3 (Q-16)                                                                                                                                                            |
 | R-7 | Her real data on the private instance is exposed through its public URL               | H              | Login required (C-16); mechanism in P3 (Q-20); the demo instance holds sample data only (C-7)                                                                                                                                                                     |
 | R-1 | The MVP is too big for about 8 hours a week                                           | H              | Build in thin slices that each work on their own; MVP exit is one real workout logged end to end (6.3); offline use and the half-folded layout are already post-MVP. The editor is on the critical path because her program is entered only through the UI (C-15) |
@@ -149,6 +149,7 @@ Every requirement (REQ-nnn) in `01-requirements.md` must reference at least one 
 
 | Version | Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.5     | 2026-11-08 | Change after approval, requested by Teodora: "private" narrowed to real training logs, health notes and secrets (docs/private-data-checklist.md v0.4); C-13, C-15 and the R-2 mitigation reworded to match. No scope change; CAP-1 and R-1 text untouched. |
 | 1.4     | 2026-11-07 | Change after approval, requested by Teodora: Q-18 marked resolved in P1.1 (see docs/private-data-checklist.md). No scope change. |
 | 1.3     | 2026-11-07 | Change after approval, requested by Teodora: wording changes for the public repo (Q-24, two change-log entries, one spec pointer). No scope change. |
 | 1.2     | 2026-11-04 | Change after approval, requested by Teodora: removed the nominal training days from section 3; the goal is three sessions a week, on no fixed days (spec v0.6)                                                                                                                                                                                                                                                                                                                                                                                              |

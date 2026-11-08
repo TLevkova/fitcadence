@@ -1,15 +1,15 @@
 ---
 doc: ROAD-002
 title: FitCadence – Delivery roadmap
-version: 0.8
+version: 0.9
 status: Draft
-updated: 2026-11-07
+updated: 2026-11-08
 owner: Teodora
 ---
 
 # FitCadence – Delivery roadmap
 
-**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (repo, docs, history check and ADRs done; `/init`, the `e2e/` deny rule and Q-26 still open) · **Next:** finish P1.1 in Claude Code, then `P1.2 · Traceability approach`
+**Where I am now:** discovery (P0) is complete, vision Approved · `P1.1 · Setup` is in progress (repo, docs, history check, ADRs, `CLAUDE.md` and the `e2e/` deny rule done; Q-26 decided: the gitleaks pre-commit hook is configured, install and test await my OK) · **Next:** finish P1.1 in Claude Code, then `P1.2 · Traceability approach`
 
 This file covers P1 to P8. Discovery (P0) is in `fitcadence-discovery-roadmap.md` (frozen). The phase map and IDs come from `fitcadence-project-brief.md` §6. Sub-phases and steps that the brief does not list are marked **[ASSUMPTION]** and are confirmed when the phase starts.
 
@@ -99,7 +99,7 @@ flowchart TB
 
 | Phase                       | Stage                                                        | Where              | Status   | Output                          | Version |
 | --------------------------- | ------------------------------------------------------------ | ------------------ | -------- | ------------------------------- | ------- |
-| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (repo, docs, history check, ADRs done; /init, e2e/ deny rule, Q-26 open) | Repo skeleton, ADRs             | –       |
+| P1 Setup                    | P1.1 Repo, tooling, docs structure, ADRs                     | ⌨️                 | ▶️ In progress (repo, docs, history check, ADRs, CLAUDE.md, e2e/ deny rule done; Q-26 decided, gitleaks hook install open) | Repo skeleton, ADRs             | –       |
 |                             | P1.2 Traceability approach **[ASSUMPTION: new sub-phase]**   | 💬 Claude.ai       | ⏳ To do | ADR + brief update              | –       |
 | P2 Requirements             | P2.1 Requirements interview                                  | ⌨️                 | ⏳ To do | `01-requirements.md`            | –       |
 |                             | P2.2 Requirements review                                     | 💬 or ⌨️           | ⏳ To do | Approved REQs                   | –       |
@@ -127,17 +127,18 @@ Each step cites its source (D = decision, C = constraint, L = learning objective
 | Step                                                                                                                                                                                                                                                                                             | Source                            |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
 | Create the public GitHub repo                                                                                                                                                                                                                                                                    | D-03, D-10                        |
-| Decide what counts as private before the first commit (Q-18). The training spec has sensitive personal content, so decide whether it is committed, redacted or kept out. The vision and brief also contain personal details (name, device, schedule) | Q-18, C-13, R-2                   |
+| Decide what counts as private before the first commit (Q-18). Decided (checklist v0.4): real training logs, health notes and secrets; the program is not private. The original training spec can contain health notes, so only a redacted copy is committed. The vision and brief also contain personal details (name, device, schedule) | Q-18, C-13, R-2                   |
 | `.gitignore` for private paths from the first commit                                                                                                                                                                                                                                             | D-10, R-2                         |
 | Docs structure under `/docs` (`adr/`, vision, brief, both roadmaps)                                                                                                                                                                                                                              | D-01                              |
 | Commit approved docs that pass the Q-18 checklist                                                                                                                                                                                                                                                | D-10, C-13                        |
 | ADRs for D-01 to D-07. D-08 stays open until P3                                                                                                                                                                                                                                                  | Brief §4                          |
 | ADRs for D-09 to D-14                                                                                                                                                                                                                                                                            | Confirmed by Teodora 2026-11-07   |
 | `/init` for a first `CLAUDE.md` (extended in P4)                                                                                                                                                                                                                                                 | Brief §6                          |
+| gitleaks as a local pre-commit hook via the `pre-commit` framework (`.pre-commit-config.yaml`); installing it and testing it needs my OK | Q-26, D-16 [proposed], D-10 |
 | Minimal permission rule denying writes to `e2e/` from the first session, so D-07 is enforced before P4                                                                                                                                                                                           | **[ASSUMPTION]**, D-07            |
 
 **Exit criterion:** repo is public; the private-data checklist exists and was applied; approved docs and ADRs are committed; a manual check of the git history shows no private data; trackers updated.
-**Resolves:** Q-18.
+**Resolves:** Q-18, Q-26.
 
 **P1.2 · Traceability approach** · 💬 Claude.ai · Output: ADR + brief update **[ASSUMPTION: new sub-phase]**
 Agree how the chain G → CAP → REQ → Issue → PR → unit tests → @REQ test → CI report is recorded and verified, before the requirements interview (P2.1): a generated matrix or a hand-kept one, where it lives, and what fails CI. Implementation (generator script, CI check) stays in P5.2 and P6.
@@ -217,7 +218,7 @@ Where: ⌨️ Claude Code · Output: green pipeline, live URL. Sub-phases are **
 | Stage                     | Steps                                                                                                                                                                                                                                                                                                                                                                              | Source                                                         |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | P5.1 Skeleton app, Vercel | Installable PWA skeleton; Git integration with a preview per PR and production on merge to `main`; demo instance live with sample data; private instance deployed empty and behind login **[ASSUMPTION]**                                                                                                                                                                          | C-1, C-7, D-04, C-16                                           |
-| P5.2 CI pipeline          | GitHub Actions: build, lint, unit tests, automated private-data scan, and the full Playwright suite on every PR to `main`. The Playwright job runs unconditionally (a skipped required check counts as passing). Branch protection on `main` requires these checks, including the E2E run, before merge. A first smoke test from P7.1 exists so the E2E check has something to run | D-03, D-10, R-2, D-14, L-5; smoke-test timing **[ASSUMPTION]** |
+| P5.2 CI pipeline          | GitHub Actions: build, lint, unit tests, a gitleaks scan (required check; also confirm GitHub push protection is on), and the full Playwright suite on every PR to `main`. The Playwright job runs unconditionally (a skipped required check counts as passing). Branch protection on `main` requires these checks, including the E2E run, before merge. A first smoke test from P7.1 exists so the E2E check has something to run | D-03, D-10, R-2, D-14, L-5; smoke-test timing **[ASSUMPTION]** |
 | P5.3 `@claude` Action     | Comment-triggered only, authenticated with the subscription token                                                                                                                                                                                                                                                                                                                  | D-05                                                           |
 
 Also in P5: measure my pace on the first working slice (A-5).
@@ -273,17 +274,19 @@ Where: both · Output: healthy repo, written retrospective.
 
 | Phase                | Questions                                                        |
 | -------------------- | ---------------------------------------------------------------- |
-| P1.1                 | Q-18                                                             |
+| P1.1                 | Q-18, Q-26                                                       |
 | P1.2                 | Q-29                                                             |
 | P2.1                 | Q-1, Q-11, Q-14, Q-19, Q-21, Q-22, Q-23; backup mechanism (C-14) |
 | P3.1                 | Q-9, Q-16, Q-17, Q-20                                            |
 | P4 (before P4.1)     | Q-28                                                             |
+| Before P5.1 [ASSUMPTION] | Q-30                                                         |
 | Before post-MVP work | Q-12, Q-13, Q-24, Q-25                                           |
 
 ## Open questions added after vision v1.0
 
 - **Q-28** · What is worth adding to this project beyond what we have planned? Scope: (1) community skills, plugins, subagents and MCP servers, including but not limited to find-skills, superpowers, claude-mem, impeccable and task-observer; (2) deterministic controls, meaning settings, permissions, hooks, linters, scanners and CI checks, which enforce rules instead of relying on prompts (for example a rule like KISS or the private-data checklist); (3) anything about Claude Code I don't know yet. Judge each against: it earns its complexity (KISS), it is safe for a public repo (D-10), it is free (D-06), it is something I can read and understand (L-2), and it is verified from official docs or the source repo, not from blog posts. Owner: Teodora, Claude researches. Phase: P4, before P4.1 **[ASSUMPTION]**.
 - **Q-29** · How is traceability recorded and verified? Compare: generated `docs/traceability.md` vs hand-kept; ID format and tag conventions; what fails CI (for example a REQ with no Issue or no @REQ test). Owner: Teodora, Claude researches. Phase: P1.2 **[ASSUMPTION]**.
+- **Q-30** · Does the demo program still need to differ from the real one? D-15 (proposed) says yes; the private-data checklist v0.4 says the demo program may be based on the real structure, as long as it has no logs and no health notes. Owner: Teodora. Phase: before P5.1 **[ASSUMPTION]**. Status: open.
 
 ## Conventions
 
@@ -311,6 +314,7 @@ Where the suite runs (Vercel preview URL or a local build in Actions) depends on
 
 ## Change log
 
+- 0.9 (2026-11-08): "Private" narrowed (checklist v0.4). P1.1: reworded the Q-18 step, added the gitleaks pre-commit step, Resolves now Q-18 and Q-26; `/init` and the `e2e/` deny rule marked done. P5.2: gitleaks CI scan and push protection replace the generic private-data scan. Added Q-30 (open) and its routing.
 - 0.8 (2026-11-07): P1.1 status: ADRs done; `/init`, the `e2e/` deny rule and Q-26 still open. P2.1: Teodora decided to create a minimal requirements-interview skill first (skill name [ASSUMPTION]); replaced the incorrect `/spec` wording (not a built-in Claude Code command); P2.1 diagram box renamed.
 - 0.7 (2026-11-07): P1.1 marked in progress; ADRs now cover D-09 to D-14 (confirmed by Teodora). Added P1.2 Traceability approach as a new sub-phase [ASSUMPTION] (tracker, diagram, phase details). Added Q-28 (P4, before P4.1) and Q-29 (P1.2) with routing.
 - 0.6 (2026-11-07): Reworded private-data wording for the public repo.
